@@ -5,4 +5,4 @@ COPY src/ /app
 RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 8001
-CMD ["python", "server.py"]
+CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8001"]
