@@ -1,13 +1,8 @@
 import random
 import requests
-import mcp
-
-from fastapi import FastAPI
 from mcp.server.fastmcp import FastMCP
 
-app = FastAPI()
-
-mcp = FastMCP("Chat-MCP-Server")
+mcp = FastMCP("Chat-MCP-Server", host="0.0.0.0", port=8001)
 
 @mcp.tool()
 def add(a: int, b: int) -> int:
@@ -27,4 +22,5 @@ def get_current_weather(city: str) -> str:
     response = requests.get(f"{endpoint}/{city}")
     return response.text
 
-app.mount("/", mcp.sse_app())
+if __name__ == "__server__":
+    mcp.run(transport="sse")
