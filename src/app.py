@@ -1,13 +1,12 @@
 from fastapi import FastAPI, Request
 from mcp.server.sse import SseServerTransport
 from starlette.routing import Mount
-from weather import mcp
+from activities import mcp
 
 # Create FastAPI application with metadata
 app = FastAPI(
-    title="FastAPI MCP SSE",
-    description="A demonstration of Server-Sent Events with Model Context "
-    "Protocol integration",
+    title="Family Activities MCP SSE",
+    description="Family Activities for finding things to do",
     version="0.1.0",
 )
 
@@ -44,12 +43,14 @@ async def handle_sse(request: Request):
         read_stream,
         write_stream,
     ):
+        
         # Run the MCP server with the established streams
         await mcp._mcp_server.run(
             read_stream,
             write_stream,
-            mcp._mcp_server.create_initialization_options(),
+            mcp._mcp_server.create_initialization_options(),                                                             
         )
+
 
 
 # Import routes at the end to avoid circular imports

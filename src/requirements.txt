@@ -3,3 +3,4 @@ uvicorn
 requests
 starlette
 mcp[cli]
+geopy
